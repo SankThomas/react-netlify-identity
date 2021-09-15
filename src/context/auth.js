@@ -1,7 +1,11 @@
 import { createContext, useState, useEffect } from "react"
 import netlifyIdentity from "netlify-identity-widget"
 
-const AuthContext = createContext()
+const AuthContext = createContext({
+  user: null,
+  login: () => {},
+  logout: () => {},
+})
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -32,11 +36,9 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = () => netlifyIdentity.close()
 
-  return (
-    <AuthContext.Provider value={(user, login, logout)}>
-      {children}
-    </AuthContext.Provider>
-  )
+  const context = { user, login, logout }
+
+  return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
 }
 
 export default AuthContext
