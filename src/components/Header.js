@@ -2,15 +2,13 @@ import { useContext } from "react"
 import AuthContext from "../context/auth"
 
 export default function Header() {
-  const { user } = useContext(AuthContext)
-
+  const { user, login, logout } = useContext(AuthContext)
   console.log(user)
 
   return (
     <>
       <header>
-        <button>Log In</button>
-        <p></p>
+        <button onClick={login}>Log In</button>
       </header>
     </>
   )
